@@ -8,15 +8,25 @@ public class PlayerController
 
     private PlayerView playerView;
     private PlayerScriptableObject playerScriptableObject;
+
     private float velocity;
     private float horizontalAxis;
     private float verticalAxis;
+
     private float mouseX;
     private PlayerState playerState;
 
-    public int KeysEquipped { get => playerScriptableObject.KeysEquipped; set => playerScriptableObject.KeysEquipped = value; }
-    public PlayerState PlayerState { get => playerState; private set => playerState = value; }
+    public int KeysEquipped 
+    { 
+        get => playerScriptableObject.KeysEquipped; 
+        set => playerScriptableObject.KeysEquipped = value; 
+    }
 
+    public PlayerState PlayerState 
+    { 
+        get => playerState; 
+        private set => playerState = value; 
+    }
 
     public PlayerController(PlayerView playerView, PlayerScriptableObject playerScriptableObject)
     {
@@ -36,9 +46,7 @@ public class PlayerController
         bool IsGrounded = Physics.Raycast(transform.position, -transform.up, playerScriptableObject.raycastLength);
 
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded)
-        {
             playerRigidbody.AddForce(Vector3.up * playerScriptableObject.jumpForce, ForceMode.Impulse);
-        }
     }
 
     public void Move(Rigidbody playerRigidbody, Transform transform)
@@ -65,6 +73,7 @@ public class PlayerController
         mouseX = Input.GetAxis("Mouse X");
         velocity = Input.GetKey(KeyCode.LeftShift) ? playerScriptableObject.sprintSpeed : playerScriptableObject.walkSpeed;
     }
+
     private void calculatePositionRotation(Rigidbody playerRigidbody, Transform transform, out Quaternion rotation, out Vector3 position)
     {
         Vector3 lookRotation = new Vector3(0, mouseX * playerScriptableObject.sensitivity, 0);
