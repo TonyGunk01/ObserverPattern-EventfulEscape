@@ -7,32 +7,15 @@ public class LightSwitchView : MonoBehaviour, IInteractable
 {
     [SerializeField] private List<Light> lightsources = new List<Light>();
     private SwitchState currentState;
-    public delegate void LightSwitchDelegate();
-    public static event LightSwitchDelegate lightToggled;
+    public static event Action OnLightSwitchToggled;
 
-    public static event Action lightToggledAction;
+    private void OnEnable() => UnityEditor.MPE.EventService.Instance.OnLightSwitchToggled.AddListener(onLightSwitch);
 
-    private void OnEnable() => lightToggledAction += onLightSwitch;
-
-    private void OnDisable() => lightToggledAction -= onLightSwitch;
-
-    public delegate void LightSwitchDelegate();
-    public static LightSwitchDelegate lightSwitch;
-
-    private void OnEnable()
-    {
-        lightSwitch = OnLightSwitchToggled;
-        lightSwitch += OnLightSwitchSoundEffects;
-    }
-
-    private void OnDisable()
-    {
-        lightSwitch = null;
-    }
+    private void OnDisable() => UnityEditor.MPE.EventService.Instance.OnLightSwitchToggled.RemoveListener(onLightSwitch);
 
     private void Start() => currentState = SwitchState.Off;
 
-    public void Interact() => lightToggledAction?.Invoke();
+    public void Interact() => UnityEditor.MPE.EventService.Instance.OnLightSwitchToggled.InvokeEvent();
 
     private void toggleLights()
     {
