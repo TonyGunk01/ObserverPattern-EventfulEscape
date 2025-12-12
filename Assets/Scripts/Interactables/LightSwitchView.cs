@@ -15,11 +15,17 @@ public class LightSwitchView : MonoBehaviour, IInteractable
         lightSwitch += OnLightSwitchSoundEffects;
     }
 
+    private void OnDisable()
+    {
+        lightSwitch = null;
+    }
+
     private void Start() => currentState = SwitchState.Off;
 
     public void Interact()
     {
-        lightSwitch.Invoke();
+        if (lightSwitch != null)
+            lightSwitch.Invoke();
     }
 
     private void toggleLights()
