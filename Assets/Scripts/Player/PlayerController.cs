@@ -14,9 +14,17 @@ public class PlayerController
     private float mouseX;
     private PlayerState playerState;
 
-    public int KeysEquipped { get => playerScriptableObject.KeysEquipped; set => playerScriptableObject.KeysEquipped = value; }
+    public int KeysEquipped 
+    { 
+        get => playerScriptableObject.KeysEquipped; 
+        set => playerScriptableObject.KeysEquipped = value; 
+    }
     
-    public PlayerState PlayerState { get => playerState; private set => playerState = value; }
+    public PlayerState PlayerState 
+    { 
+        get => playerState; 
+        private set => playerState = value; 
+    }
 
     public PlayerController(PlayerView playerView, PlayerScriptableObject playerScriptableObject)
     {
@@ -25,14 +33,15 @@ public class PlayerController
 
         this.playerScriptableObject = playerScriptableObject;
         this.playerScriptableObject.KeysEquipped = 0;
-        LightSwitchView.lightToggled += onLightSwitch;
+        LightSwitchView.lightToggledAction += onLightSwitch;
         playerState = PlayerState.InDark;
     }
 
     ~PlayerController()
     {
-        LightSwitchView.lightToggled -= onLightSwitch;
+        LightSwitchView.lightToggledAction -= onLightSwitch;
     }
+
     public void Interact() => IsInteracted = Input.GetKeyDown(KeyCode.E) ? true : (Input.GetKeyUp(KeyCode.E) ? false : IsInteracted);
 
     public void Jump(Rigidbody playerRigidbody, Transform transform)
