@@ -15,8 +15,8 @@ public class PlayerController
     private PlayerState playerState;
 
     public int KeysEquipped { get => playerScriptableObject.KeysEquipped; set => playerScriptableObject.KeysEquipped = value; }
+    
     public PlayerState PlayerState { get => playerState; private set => playerState = value; }
-
 
     public PlayerController(PlayerView playerView, PlayerScriptableObject playerScriptableObject)
     {
@@ -82,6 +82,7 @@ public class PlayerController
     {
         if (PlayerState == PlayerState.InDark)
             PlayerState = PlayerState.None;
+
         else
             PlayerState = PlayerState.InDark;
     }
