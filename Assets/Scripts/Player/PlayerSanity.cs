@@ -57,6 +57,7 @@ public class PlayerSanity : MonoBehaviour
 
         GameService.Instance.GetGameUI().UpdateInsanity(1f - sanityLevel / maxSanity);
     }
+
     private void OnSupernaturalEvent()
     {
         decreaseSanity(sanityDropAmountPerEvent);
