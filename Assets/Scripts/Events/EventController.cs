@@ -14,10 +14,8 @@ public class EventController
 public class EventController<T>
 {
     public Action<T> baseEvent;
-
     public void AddListener(Action<T> listener) => baseEvent += listener;
-
     public void RemoveListener(Action<T> listener) => baseEvent -= listener;
-
     public void InvokeEvent(T type) => baseEvent?.Invoke(type);
 }
+
