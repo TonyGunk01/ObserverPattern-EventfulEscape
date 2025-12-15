@@ -14,9 +14,17 @@ public class PlayerController
     private float mouseX;
     private PlayerState playerState;
 
-    public int KeysEquipped { get => playerScriptableObject.KeysEquipped; set => playerScriptableObject.KeysEquipped = value; }
+    public int KeysEquipped 
+    { 
+        get => playerScriptableObject.KeysEquipped; 
+        set => playerScriptableObject.KeysEquipped = value; 
+    }
     
-    public PlayerState PlayerState { get => playerState; private set => playerState = value; }
+    public PlayerState PlayerState 
+    { 
+        get => playerState; 
+        private set => playerState = value; 
+    }
 
     public PlayerController(PlayerView playerView, PlayerScriptableObject playerScriptableObject)
     {
@@ -27,11 +35,13 @@ public class PlayerController
         playerState = PlayerState.InDark;
 
         EventService.Instance.OnLightSwitchToggled.AddListener(onLightSwitch);
+        EventService.Instance.OnKeyPickedUp.AddListener(onKeysPickedUp);
     }
 
     ~PlayerController()
     {
         EventService.Instance.OnLightSwitchToggled.RemoveListener(onLightSwitch);
+        EventService.Instance.OnKeyPickedUp.RemoveListener(onKeysPickedUp);
     }
 
     public void Interact() => IsInteracted = Input.GetKeyDown(KeyCode.E) ? true : (Input.GetKeyUp(KeyCode.E) ? false : IsInteracted);
@@ -85,5 +95,10 @@ public class PlayerController
 
         else
             PlayerState = PlayerState.InDark;
+    }
+
+    private void onKeysPickedUp(int keys)
+    {
+        KeysEquipped = keys;
     }
 }
