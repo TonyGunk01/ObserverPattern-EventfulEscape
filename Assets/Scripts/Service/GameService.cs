@@ -19,8 +19,11 @@ public class GameService : GenericMonoSingleton<GameService>
     private void Start() => playerController = new PlayerController(playerView, playerScriptableObject);
 
     public PlayerController GetPlayerController() => playerController;
+
     public GameUIView GetGameUI() => gameUIView;
+
     public InstructionView GetInstructionView() => instructionView;
+
     public SoundView GetSoundView() => soundView;
 
     public void GameOver()
