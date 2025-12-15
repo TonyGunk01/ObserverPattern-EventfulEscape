@@ -27,13 +27,16 @@ public class LightSwitchView : MonoBehaviour, IInteractable
                 currentState = SwitchState.Off;
                 lights = false;
                 break;
+
             case SwitchState.Off:
                 currentState = SwitchState.On;
                 lights = true;
                 break;
+
             case SwitchState.Unresponsive:
                 break;
         }
+
         foreach (Light lightSource in lightsources)
         {
             lightSource.enabled = lights;
